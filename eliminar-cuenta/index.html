@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eliminar cuenta — CabeSport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/icon.png">
+<style>
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1318;
+    --surface: #111820;
+    --surface2: #16202a;
+    --accent: #00e5a0;
+    --accent2: #00b87a;
+    --text: #f0f4f8;
+    --text2: #8a9bb0;
+    --text3: #4a5a6a;
+    --border: rgba(0,229,160,0.12);
+    --border2: rgba(255,255,255,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(8,12,16,0.97);
+    border-bottom: 1px solid var(--border2);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 120px 48px 80px;
+  }
+
+  .page-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin-bottom: 24px;
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+
+  .page-updated {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .section {
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    margin-bottom: 16px;
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  h2::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 1.2em;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+    margin-top: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--text2);
+    margin-bottom: 14px;
+  }
+
+  ul, ol {
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 16px;
+  }
+
+  ul li, ol li {
+    font-size: 0.9rem;
+    color: var(--text2);
+    line-height: 1.65;
+    padding: 6px 0 6px 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  ol { counter-reset: ol-counter; }
+  ol li { counter-increment: ol-counter; }
+  ol li::before {
+    content: counter(ol-counter, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+  }
+
+  strong { color: var(--text); font-weight: 500; }
+
+  .highlight-box {
+    background: rgba(0,229,160,0.05);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 24px 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .highlight-box .icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+
+  .highlight-box p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text2);
+  }
+
+  .highlight-box strong { color: var(--accent); }
+
+  .contact-box {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-top: 16px;
+  }
+
+  .contact-box p { margin: 4px 0; font-size: 0.88rem; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  footer {
+    border-top: 1px solid var(--border2);
+    padding: 40px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 80px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+  .footer-links a { font-size: 0.8rem; color: var(--text3); }
+  .footer-links a:hover { color: var(--text2); text-decoration: none; }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 2px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .container { padding: 100px 24px 60px; }
+    footer { padding: 32px 24px; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">CABE<span>SPORT</span></a>
+  <a href="/" class="nav-back">← Volver al inicio</a>
+</nav>
+
+<div class="container">
+
+  <div class="page-tag">/ Legal</div>
+  <h1 class="page-title">ELIMINAR<br>CUENTA</h1>
+  <div class="page-updated">Última actualización: 22 de septiembre de 2026</div>
+
+  <p>Esta página explica, en detalle, cómo eliminar tu cuenta de CabeSport y tus datos asociados, tanto desde la aplicación como sin necesidad de tenerla instalada. Complementa nuestra <a href="/privacidad">Política de Privacidad</a>.</p>
+
+  <h2>A. Eliminar tu cuenta desde la app</h2>
+  <p>La forma principal y más rápida de eliminar tu cuenta es directamente desde CabeSport:</p>
+  <ol>
+    <li>Abre CabeSport y entra en <strong>Ajustes</strong></li>
+    <li>Pulsa <strong>Eliminar cuenta</strong></li>
+    <li>Confirma la acción en el aviso que aparece</li>
+    <li>Si la app te lo pide, vuelve a autenticarte (con tu contraseña o con tu cuenta de Google) por motivos de seguridad</li>
+    <li>Confirma de nuevo para completar el borrado</li>
+  </ol>
+  <p>Tras confirmar, CabeSport elimina tu cuenta y tus datos asociados y cierra tu sesión automáticamente. Esta acción es <strong>irreversible</strong>.</p>
+
+  <h2>B. Eliminar tu cuenta sin tener la app instalada</h2>
+  <p>Si ya no tienes CabeSport instalada, o no puedes acceder a tu cuenta, puedes solicitar la eliminación de tu cuenta y tus datos escribiéndonos a:</p>
+  <div class="contact-box">
+    <p><strong>Email:</strong> <a href="mailto:cabesportapp@gmail.com">cabesportapp@gmail.com</a></p>
+  </div>
+  <p>Indícanos el correo electrónico asociado a tu cuenta para que podamos identificarla. Podemos pedirte verificación adicional razonable para confirmar que la solicitud viene de la persona titular de la cuenta, antes de proceder al borrado.</p>
+
+  <h2>C. Qué elimina CabeSport</h2>
+  <p>Al eliminar tu cuenta, CabeSport borra tu cuenta de acceso y los datos que la app controla directamente, incluyendo, entre otros:</p>
+  <ul>
+    <li>Tu perfil (nombre, datos físicos, objetivos y preferencias)</li>
+    <li>Tus registros de comidas, entrenamientos y peso corporal</li>
+    <li>Tus fotos corporales y fotos de comidas subidas a la app</li>
+    <li>Tu historial de conversaciones con el coach IA</li>
+    <li>Tus alimentos personalizados privados y el resto de datos de uso asociados a tu cuenta</li>
+  </ul>
+  <div class="highlight-box">
+    <div class="icon">🔒</div>
+    <p>Los alimentos que hayas aportado a la base de datos comunitaria <strong>no se eliminan</strong>, porque otros usuarios pueden depender de ellos para sus propios registros — pero dejan de estar vinculados a tu identidad.</p>
+  </div>
+
+  <h2>D. Datos que pueden no desaparecer de inmediato</h2>
+  <p>Aunque eliminamos tus datos personales controlados por la app en un plazo máximo de <strong>30 días</strong>, algunos registros limitados pueden conservarse durante más tiempo por motivos técnicos, legales o de seguridad ajenos al control directo de CabeSport, entre ellos:</p>
+  <ul>
+    <li>Registros que nuestros proveedores de servicio (como los indicados en nuestra <a href="/privacidad">Política de Privacidad</a>) retengan de acuerdo con sus propias políticas de retención</li>
+    <li>Información de facturación o de pago gestionada por Google Play, sujeta a sus propias obligaciones de conservación</li>
+    <li>Registros de seguridad, prevención de fraude o de actividad técnica (logs) necesarios para proteger el servicio</li>
+    <li>Copias de seguridad internas, que se sobrescriben de forma rotativa en el curso normal de nuestras operaciones</li>
+    <li>Cualquier dato que estemos legalmente obligados a conservar durante un periodo determinado</li>
+  </ul>
+  <p>No podemos garantizar la desaparición instantánea y universal de cualquier copia en cualquier sistema; sí garantizamos el borrado de tus datos personales de nuestros sistemas de producción en el plazo indicado.</p>
+
+  <h2>E. Suscripciones de Google Play</h2>
+  <div class="highlight-box">
+    <div class="icon">⚠️</div>
+    <p><strong>Eliminar tu cuenta de CabeSport no cancela automáticamente una suscripción Pro activa de Google Play.</strong> Si tienes una suscripción activa, debes cancelarla por separado desde Google Play para evitar cargos futuros.</p>
+  </div>
+  <p>Puedes gestionar o cancelar tu suscripción desde la app de <strong>Google Play Store</strong> → tu foto de perfil → <strong>Pagos y suscripciones</strong> → <strong>Suscripciones</strong> → CabeSport, o consultando la ayuda oficial de Google Play sobre suscripciones.</p>
+
+</div>
+
+<footer>
+  <a href="/" class="footer-logo">CABE<span>SPORT</span></a>
+  <ul class="footer-links">
+    <li><a href="/privacidad">Política de privacidad</a></li>
+    <li><a href="/terminos">Términos de uso</a></li>
+    <li><a href="mailto:cabesportapp@gmail.com">Contacto</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 CabeSport — Kevin Cabeza Nieuwlaat</div>
+</footer>
+
+</body>
+</html>
